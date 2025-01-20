@@ -1,4 +1,5 @@
 from aws_cdk import (
+    Duration,
     Stack,
     aws_lambda as _lambda,
     aws_lambda_python_alpha as _alambda
@@ -16,5 +17,6 @@ class TestLocalDevStack(Stack):
             entry="./lambda/",
             runtime=_lambda.Runtime.PYTHON_3_9,
             index='initiator.py',
-            handler="handle"
+            handler="handle",
+            timeout=Duration.seconds(10)
         )
