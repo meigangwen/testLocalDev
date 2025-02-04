@@ -10,13 +10,17 @@ def handle(event, context):
     print("Hello world!")
 
     ssm = boto3.client('ssm', region_name='ap-southeast-1')
-    response = ssm.get_parameters(
-        Name=['tickers'],
+    response = ssm.get_parameter(
+        Name="tickers",
         WithDecryption=True
     )
+    
     # Extract the parameter value
-    for parameter in response['Parameters']:
-        print (parameter['Value'])
+    print(response['Parameter']['Value'])
+    tickers = response['Parameter']['Value'].split(",")
+    for ticker in tickers:
+        print(ticker)
+    
 
     '''
     # email configurations
