@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import boto3
 from botocore.exceptions import ClientError
+#import json
 
 
 def handle(event, context):
@@ -8,6 +9,16 @@ def handle(event, context):
     print(soup.text)
     print("Hello world!")
 
+    ssm = boto3.client('ssm', region_name='ap-southeast-1')
+    response = ssm.get_parameters(
+        Name=['tickers'],
+        WithDecryption=True
+    )
+    # Extract the parameter value
+    for parameter in response['Parameters']:
+        print (parameter['Value'])
+
+    '''
     # email configurations
     SENDER = "Gangwen <gangwen@yilumi.cn>"
     RECIPIENT = "meigangwen@gmail.com"
@@ -64,3 +75,4 @@ def handle(event, context):
     else:
         print("Email sent! Message ID:"),
         print(response['MessageId'])
+    '''
