@@ -11,7 +11,7 @@ def handle(event, context):
 
     ssm = boto3.client('ssm', region_name='ap-southeast-1')
     response = ssm.get_parameter(
-        Name="tickers",
+        Name="sg_tickers",
         WithDecryption=True
     )
     
@@ -19,7 +19,7 @@ def handle(event, context):
     print(response['Parameter']['Value'])
     tickers = response['Parameter']['Value'].split(",")
     for ticker in tickers:
-        print(ticker)
+        print(ticker + ".SI")
     
 
     '''
